@@ -1,0 +1,37 @@
+\documentclass{beamer}
+\usetheme{hk}
+
+%\usecolortheme{hk} % default
+%\usecolortheme{hackinberg}
+
+\title{example presentation}
+\author{Thomas Kastner}
+
+\begin{document}
+    {
+    % disable footline on title page
+    \setbeamertemplate{footline}{}
+    \begin{frame}
+        \titlepage
+    \end{frame}
+    }
+
+    \begin{frame}{example frame}
+        \begin{itemize}
+          \item example
+          \item itemize
+        \end{itemize}
+
+        \begin{block}{normal}
+          block
+        \end{block}
+
+        \begin{exampleblock}{example}
+          block
+        \end{exampleblock}
+
+        \begin{alertblock}{alert}
+          block
+        \end{alertblock}
+    \end{frame}
+\end{document}
