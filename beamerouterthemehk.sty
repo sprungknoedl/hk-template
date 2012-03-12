@@ -1,0 +1,93 @@
+\RequirePackage{tikz}
+\RequirePackage{ifthen}
+
+\newcommand{\hklogo}[2][0.4pt]{
+    \begin{tikzpicture}[y=#1, x=#1, yscale=-1]
+    \begin{scope}[shift={(-150.76012,-126.36056)}]
+      \path[fill=#2] (186.4796,193.5294) .. controls (182.0579,173.5829) and
+        (178.2418,159.4773) .. (177.2674,159.4773) .. controls (175.6928,159.4773) and
+        (169.1448,162.8722) .. (169.1821,163.6693) .. controls (169.1986,164.0220) and
+        (169.9712,167.4741) .. (170.8989,171.3406) .. controls (172.4846,177.9493) and
+        (172.4959,178.4408) .. (171.0886,179.5393) .. controls (168.0849,181.8839) and
+        (161.0128,185.0799) .. (160.3967,184.3713) .. controls (160.0486,183.9709) and
+        (159.2700,181.2707) .. (158.6665,178.3707) .. controls (158.0629,175.4708) and
+        (156.0490,166.5733) .. (154.1910,158.5985) .. controls (149.4481,138.2409) and
+        (149.2790,140.3440) .. (155.8580,137.8626) .. controls (158.9376,136.7010) and
+        (161.9463,135.7507) .. (162.5441,135.7507) .. controls (163.2117,135.7507) and
+        (164.0711,138.3239) .. (164.7721,142.4220) .. controls (165.3997,146.0912) and
+        (166.4059,149.2823) .. (167.0081,149.5134) .. controls (167.8208,149.8253) and
+        (174.3050,147.2259) .. (175.9143,145.9431) .. controls (176.0086,145.8680) and
+        (175.3709,142.5124) .. (174.4972,138.4864) -- (172.9087,131.1663) --
+        (175.6439,130.0352) .. controls (177.1483,129.4131) and (179.9228,128.2645) ..
+        (181.8094,127.4827) .. controls (183.6961,126.7009) and (185.3924,126.2138) ..
+        (185.5789,126.4004) .. controls (185.7655,126.5869) and (187.3854,133.5100) ..
+        (189.1788,141.7849) .. controls (190.9721,150.0598) and (192.6480,156.8326) ..
+        (192.9030,156.8356) .. controls (193.1580,156.8356) and (194.7018,153.2382) ..
+        (196.3336,148.8347) -- (199.3005,140.8284) -- (204.9785,138.2809) .. controls
+        (215.6238,133.5047) and (215.3275,133.0511) .. (210.2834,146.4010) --
+        (205.8697,158.0828) -- (208.8526,160.7573) .. controls (210.4931,162.2282) and
+        (215.3410,166.1507) .. (219.6256,169.4740) .. controls (226.5042,174.8092) and
+        (227.2204,175.6194) .. (225.7453,176.3988) .. controls (224.8267,176.8843) and
+        (222.2167,178.4004) .. (219.9455,179.7677) -- (215.8160,182.2539) --
+        (209.4003,177.3380) .. controls (205.8717,174.6343) and (202.5195,172.0558) ..
+        (201.9510,171.6079) .. controls (201.2239,171.0352) and (200.4045,171.9533) ..
+        (199.1877,174.7041) .. controls (197.6020,178.2888) and (197.5564,179.0383) ..
+        (198.6400,183.6997) .. controls (199.2901,186.4966) and (199.6151,189.1198) ..
+        (199.3621,189.5291) .. controls (198.8175,190.4102) and (188.8971,195.5067) ..
+        (187.7265,195.5067) .. controls (187.2818,195.5067) and (186.7207,194.6169) ..
+        (186.4796,193.5294) -- cycle;
+    \end{scope}
+    \end{tikzpicture}}
+
+\providecommand{\absoluteimage}[1]{}
+\renewcommand{\absoluteimage}[1]{
+  \begin{tikzpicture}[remember picture, overlay]
+    \path[use as bounding box] (0, 0) rectangle (\paperwidth, \paperheight);
+    \node[yshift=-\paperheight] at (current page.north west) {%
+    \begin{tikzpicture}[remember picture, overlay]
+        #1
+    \end{tikzpicture}
+    };
+  \end{tikzpicture}}
+
+\defbeamertemplate*{title page}{hk theme}{
+  \absoluteimage{ 
+    \usebeamercolor{palette primary}
+    %\draw[draw=bg, fill=bg] (0, 0) rectangle (\paperwidth, \paperheight);
+
+    \node[anchor=east] at (\paperwidth-1cm, 7cm) {\color{bg} \textbf \inserttitle};
+    \node[anchor=east] at (\paperwidth-1cm, 6.5cm) {\insertdate};
+    \node[anchor=east] at (\paperwidth-1cm, 5.5cm) {\insertauthor};
+
+    %\usebeamercolor{palette secondary}
+    \node at (1.5cm, 1.5cm) { \hklogo[1pt]{bg} };
+    \draw[draw=bg,fill=bg] (0, 0) rectangle (\paperwidth, 1cm);
+}}
+
+\defbeamertemplate*{headline}{hk theme}{
+  \usebeamercolor{palette primary}
+  \absoluteimage{
+    \node[anchor=north, fill=bg, minimum width=0.5cm, minimum height=.7cm] 
+        at (\paperwidth-1cm, \paperheight) 
+        {\color{fg} \insertframenumber};
+  }
+}
+
+\defbeamertemplate*{footline}{hk theme}{
+  \usebeamercolor{palette primary}
+  \absoluteimage{
+    \draw[draw=bg,fill=bg] (0, 0) rectangle (\paperwidth, .6cm);
+    \node at (1cm, .8cm) { \hklogo{bg} };
+
+    \node[anchor=west] at (0.5cm, 0.3cm) {\color{fg} \insertshortauthor};
+    \node[anchor=east] at (\paperwidth-0.5cm, 0.3cm) {\color{fg} \insertdate};
+  }
+}
+
+\defbeamertemplate*{frametitle}{hk theme}{
+  \insertframetitle
+  \par
+}
+
+\defbeamertemplate*{navigation symbols}{hk theme}{
+}
