@@ -1,5 +1,11 @@
 \RequirePackage{tikz}
 \RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+
+\csdef{partimg}{}
+\csdef{partsrc}{}
+\newcommand{\setimage}[1]{ \csdef{partimg}{#1} }
+\newcommand{\setsource}[1]{ \csdef{partsrc}{#1} }
 
 \newcommand{\hklogo}[2][0.4pt]{
     \begin{tikzpicture}[y=#1, x=#1, yscale=-1]
@@ -63,6 +69,28 @@
     \node at (1.5cm, 1.5cm) { \hklogo[1pt]{bg} };
     \draw[draw=bg,fill=bg] (0, 0) rectangle (\paperwidth, 1cm);
 }}
+
+\defbeamertemplate*{part page}{hk theme}{
+  \usebeamercolor{normal text}
+
+  \ifdefempty{\partimg} { % no image specified, draw default part page
+    \begin{centering}
+      {\usebeamerfont{part name}\usebeamercolor[fg]{part name}\partname~\insertromanpartnumber}
+      \vskip1em\par
+      \begin{beamercolorbox}[sep=16pt,center]{part title}
+        \usebeamerfont{part title}\insertpart\par
+      \end{beamercolorbox}
+    \end{centering}
+  }{                      % image specified, make fancy part page
+    \absoluteimage{
+      \node at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{\partimg}};
+      \node[anchor=east, fill=bg, inner sep=4mm] at (current page.east) {\usebeamerfont{part title}\insertpart\ >>};
+      \ifdefempty{\partsrc}{}{ % only draw image source if given
+        \node[anchor=south east, fill=bg, inner sep=1mm] at (current page.south east) { \color{fg} \tiny Bild: \emph{\partsrc}};
+      }
+    }
+  }
+}
 
 \defbeamertemplate*{headline}{hk theme}{
   \usebeamercolor{palette primary}

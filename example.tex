@@ -1,4 +1,7 @@
 \documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usetheme{hk}
 
 %\usecolortheme{hk} % default
@@ -7,11 +10,23 @@
 \title{example presentation}
 \author{Thomas Kastner}
 
+%\def\partimg{images/family}
+%\def\partsrc{Evil Erin - Family Jump}
+
 \begin{document}
     % disable footline on title page
-    \begin{frame}[plain]
-        \titlepage
-    \end{frame}
+    \frame[plain]{\titlepage}
+
+    \part{part without frame}
+    \frame[plain]{\partpage}
+
+    \part{part with frame}
+    \frame{\partpage}
+
+    \part{part with image}
+    \setimage{images/family}
+    \setsource{Evil Erin - Family Jump}
+    \frame[plain]{\partpage}
 
     \begin{frame}{example frame}
         \begin{itemize}
